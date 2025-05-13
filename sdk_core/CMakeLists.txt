@@ -11,11 +11,12 @@ set(LIVOX_SDK_VERSION_STRING "${LIVOX_SDK_MAJOR_VERSION}.${LIVOX_SDK_MINOR_VERSI
 
 target_include_directories(${SDK_LIBRARY}
         PUBLIC
-        include
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+        "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>"
+        PRIVATE
         include/third_party/FastCRC
         include/third_party/spdlog
         include/third_party/cmdline
-        PRIVATE
         src)
 
 set_target_properties(${SDK_LIBRARY} PROPERTIES PUBLIC_HEADER "include/livox_def.h;include/livox_sdk.h")
@@ -86,6 +87,6 @@ target_sources(${SDK_LIBRARY}
 
 
 install(TARGETS ${SDK_LIBRARY}
-        PUBLIC_HEADER DESTINATION include
+        PUBLIC_HEADER DESTINATION include/livox_sdk
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib)
